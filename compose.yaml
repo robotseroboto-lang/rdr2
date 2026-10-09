@@ -1,0 +1,17 @@
+services:
+  website:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Run npm run setup or set ADMIN_PASSWORD in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-https://your-domain.example}
+      DATA_DIR: /app/data
+    volumes:
+      - rdr-data:/app/data
+volumes:
+  rdr-data:
